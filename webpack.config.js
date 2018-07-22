@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   entry: path.join(__dirname, "src/docs"),
   output: {
-    path: path.join(__dirname, "docs"),
+    path: "/",//path.join(__dirname, "/"),
     filename: "bundle.js"
   },
   module: {
@@ -17,6 +17,20 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.(jpg|png)$/,
+        use: [
+          'file-loader',
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              bypassOnDebug: true, // webpack@1.x
+              disable: true, // webpack@2.x and newer
+            },
+          },
+        ],
+      
       }
     ]
   },
@@ -26,10 +40,10 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: [".js", ".jsx"]
+    extensions: [".js", ".jsx",'.jpg']
   },
   devServer: {
-    contentBase: path.join(__dirname, "docs"),
+    contentBase:"/",//path.join(__dirname, "docs"),
     port: 8000,
     stats: "minimal"
   }
